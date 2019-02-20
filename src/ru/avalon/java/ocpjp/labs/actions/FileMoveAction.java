@@ -1,19 +1,32 @@
 package ru.avalon.java.ocpjp.labs.actions;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
 /**
  * Действие, которое перемещает файлы в пределах дискового
  * пространства.
  */
 public class FileMoveAction implements Action {
-    /**
-     * {@inheritDoc}
-     */
+
+    private String sourceFile;
+    private String destinationFile;
+
+
+    public FileMoveAction(String sourceFile, String destinationFile) {
+        this.sourceFile = sourceFile;
+        this.destinationFile = destinationFile;
+    }
+
     @Override
     public void run() {
-        /*
-         * TODO №4 Реализуйте метод run класса FileMoveAction
-         */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        try {
+            Files.move(Paths.get(sourceFile), Paths.get(destinationFile), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace(System.err);
+        }
     }
 
     /**
@@ -21,10 +34,7 @@ public class FileMoveAction implements Action {
      */
     @Override
     public void close() throws Exception {
-        /*
-         * TODO №5 Реализуйте метод close класса FileMoveAction
-         */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        //Nothing to do;
     }
 
 }
