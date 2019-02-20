@@ -1,8 +1,11 @@
 package ru.avalon.java.ocpjp.labs;
 
+import ru.avalon.java.ocpjp.labs.actions.FileCopyAction;
+import ru.avalon.java.ocpjp.labs.actions.FileMoveAction;
 import ru.avalon.java.ocpjp.labs.console.ConsoleUI;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Лабораторная работа №2
@@ -41,21 +44,21 @@ public class Main extends ConsoleUI<Commands> {
     protected void onCommand(Commands command) throws IOException {
         switch (command) {
             case copy:
-                /*
-                 * TODO №6 Обработайте команду copy
-                 */
+                FileCopyAction copyAction = new FileCopyAction("txt.txt", "txt2.txt");
+                copyAction.start();
                 break;
             case move:
-                /*
-                 * TODO №7 Обработайте команду move
-                 */
+                FileMoveAction moveAction = new FileMoveAction("txt.txt", "txt2.txt");
+                moveAction.start();
                 break;
             case exit:
                 close();
                 break;
-                /*
-                 * TODO №9 Обработайте необработанные команды
-                 */
+            case run:
+                System.err.println("Nothing to do on command: " + command.toString());
+                break;
+            case begin:
+                System.err.println("Nothing to do on command: " + command.toString());
         }
     }
     
