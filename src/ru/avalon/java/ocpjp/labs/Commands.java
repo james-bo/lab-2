@@ -7,6 +7,6 @@ public enum Commands {
     move,
     copy,
     exit,
-    run,
-    begin
+    delete,
+    create
 }
