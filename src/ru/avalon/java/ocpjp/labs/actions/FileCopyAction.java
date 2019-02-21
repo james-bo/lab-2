@@ -1,40 +1,24 @@
 package ru.avalon.java.ocpjp.labs.actions;
 
-import java.io.*;
+import java.io.IOException;
+import java.nio.file.*;
 
 /**
- * Действие, которое копирует файлы в пределах дискового
- * пространства.
+ * Действие, которое копирует файлы в пределах дискового пространства.
  */
 public class FileCopyAction implements Action {
 
-    private File sourceFile;
-    private File destinationFile;
+    Path sourceFile;
+    Path destination;
 
-    private FileInputStream reader;
-    private FileOutputStream writer;
-
-    public FileCopyAction(String sourceFile, String destinationFile) {
-        this.sourceFile = new File(sourceFile);
-        this.destinationFile = new File(destinationFile);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void run() {
+        sourceFile = Paths.get("Exam808_SampleQuestion.pdf");
+        destination = Paths.get("Exam808_1_SampleQuestion.pdf");
         try {
-            destinationFile.createNewFile();
-            reader = new FileInputStream(sourceFile);
-            writer = new FileOutputStream(destinationFile);
-            int data = reader.read();
-            while(data != -1) {
-                writer.write(data);
-                data = reader.read();
-            }
+            Files.copy(sourceFile, destination, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ex) {
-            ex.printStackTrace(System.err);
+            System.out.println("error in copy files");
         }
 
     }
@@ -44,9 +28,9 @@ public class FileCopyAction implements Action {
      */
     @Override
     public void close() throws Exception {
-        reader.close();
-        writer.close();
-        reader = null;
-        writer = null;
+        sourceFile = null;
+        destination = null;
+        System.out.println("copy closed");
+
     }
 }

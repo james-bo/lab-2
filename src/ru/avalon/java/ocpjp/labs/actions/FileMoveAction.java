@@ -1,32 +1,34 @@
 package ru.avalon.java.ocpjp.labs.actions;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 
 /**
- * Действие, которое перемещает файлы в пределах дискового
- * пространства.
+ * Действие, которое перемещает файлы в пределах дискового пространства.
  */
 public class FileMoveAction implements Action {
 
-    private String sourceFile;
-    private String destinationFile;
+    Path sourceFile;
+    Path destination;
 
-
-    public FileMoveAction(String sourceFile, String destinationFile) {
-        this.sourceFile = sourceFile;
-        this.destinationFile = destinationFile;
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void run() {
+        sourceFile = Paths.get("Exam808_SampleQuestion.pdf");
+        destination = Paths.get("F:\\Программирование\\Java\\Work\\OCPJP\\LB2\\new\\Exam808_1.pdf");
         try {
-            Files.move(Paths.get(sourceFile), Paths.get(destinationFile), StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            e.printStackTrace(System.err);
+            if (Files.exists(sourceFile)) {
+                Files.move(sourceFile, destination, StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("File moved");
+            } else {
+                System.err.println("File doesn't exist");
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace(System.err);
         }
+//        throw new UnsupportedOperationException("Not implemented yet!");
     }
 
     /**
@@ -34,7 +36,11 @@ public class FileMoveAction implements Action {
      */
     @Override
     public void close() throws Exception {
-        //Nothing to do;
+        sourceFile = null;
+        destination = null;
+        close();
+        System.out.println("move closed");
+        //throw new UnsupportedOperationException("Not implemented yet!");
     }
 
 }
