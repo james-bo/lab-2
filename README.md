@@ -26,7 +26,7 @@ Professional Java Programmer"_
 ассоциировать с представлением о задаче. В стандартной библиотеке Java
 существует два вида потоковых сущностей: `Runnable` и `Callable`.
 
-```
+```java
 class Task implements Runnable {
 
     @Override
@@ -39,7 +39,7 @@ class Task implements Runnable {
 Сущьности типа `Callable` отличаются тем, что предполагают получение 
 некоторого результата, в случае успешного выполнения метода `call`.
 
-```
+```java
 class Task implements Callable<String> {
 
     @Override
@@ -51,7 +51,7 @@ class Task implements Callable<String> {
 ```
 На основе описанного класса можно создать объект типа `Thread`, 
 позволяющий запустить параллельный поток исполнения.
-```
+```java
 // создаём экземпляр потокового объекта
 Runnable runnable = new Task();
 
@@ -72,7 +72,7 @@ thread.start();
 Рекомендованным подходом к запуску потоков считают использование 
 Исполнителей. Исполнитель может быть создан с использованием фабричных
 методов класса `Executors` пакета `java.lang.concurrent`.
-```
+```java
 // создаём Executor с использованием фабричного метода
 ExecutorService service = Executors.newSingleThreadExecutor();
 
@@ -101,7 +101,7 @@ String string = future.get();
 Критическая секция объявляется с использованием ключевого слова 
 `synchronized` и определения объекта, который будет выступать в роли 
 "монитора" критической секции.
-```
+```java
 class Task implements Runnable {
     
     private static finale Object MONITOR = new Object();
@@ -116,7 +116,7 @@ class Task implements Runnable {
 ```
 В многих случаях, монитором критической секции является сама потоковая
 сущность.
-```
+```java
 class Task implements Runnable {
     
     @Override
@@ -129,7 +129,7 @@ class Task implements Runnable {
 ```
 Такой код может быть заменён синхронизированным методом, дающим 
 эквивалентный результат.
-```
+```java
 class Task implements Runnable {
     
     @Override
@@ -143,7 +143,7 @@ class Task implements Runnable {
 в пределах критических секций. Кроме того, метод `wait` может привести
 к возникновению исключительной ситуации `InterruptedException`, которую
 необходимо контролировать.
-```
+```java
 class Task implements Runnable {
     
     private static finale Object MONITOR = new Object();
@@ -178,7 +178,7 @@ class Task implements Runnable {
 Семафор на один токен называют "Мьютексом" (от английского выражения
 Mutual Exclusion - Взаимное Исключение), поскольку только один поток 
 разрешён к исполнению.
-```
+```java
 class Task implements Runnable {
 
     private static final Semaphore SEMAPHORE = new Semaphore(1);
