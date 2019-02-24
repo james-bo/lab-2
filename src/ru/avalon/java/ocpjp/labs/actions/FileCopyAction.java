@@ -25,7 +25,7 @@ public class FileCopyAction implements Action {
                 newnames.add(scanner.nextLine()); // записал в все строки из файла в ArrayList
                 Writer writer = null;
                 writer = new FileWriter("c:\\Users\\UIS\\Desktop\\Avalon\\lab-1\\lab-1\\src\\ru\\avalon\\java\\ocpjp\\labs\\resources\\newnames.txt");
-                for (String line : newnames) {
+                for (String line : newnames) { // перезаписал в другой файл всё из ArrayList
                     writer.write(line);
                     writer.write(System.getProperty(" "));
                 }
@@ -35,7 +35,6 @@ public class FileCopyAction implements Action {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         throw new UnsupportedOperationException("Not implemented yet!");
     }
@@ -48,6 +47,7 @@ public class FileCopyAction implements Action {
         /*
          * TODO №3 Реализуйте метод close класса FileCopyAction
          */
+        close();
         throw new UnsupportedOperationException("Not implemented yet!");
     }
 }
