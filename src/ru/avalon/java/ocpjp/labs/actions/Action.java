@@ -14,20 +14,17 @@ public interface Action extends Runnable, AutoCloseable {
      * потоке исполнения.
      */
     default void start() {
-        /*
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Action.this.run();
-                Action.this.close();
-            }
-        });
-        */
         try {
-            Thread thread = new Thread(() -> {run(); close();});
+            Thread thread = new Thread(() -> {run();
+                try {
+                    close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
             thread.start();
         } catch (Exception e) {
-            
+            e.printStackTrace();
         }
     }
     
